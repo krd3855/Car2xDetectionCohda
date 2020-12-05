@@ -1,0 +1,22 @@
+uint8 request
+etsi_its_msgs/DENM denm  # its_header will be ignored
+GeoNetArea destination_area
+TrafficClass traffic_class
+duration repetition_interval
+duration repetition_duration
+
+uint8 REQUEST_TRIGGER = 0
+uint8 REQUEST_UPDATE = 1
+uint8 REQUEST_TERMINATION = 2
+
+---
+
+uint8 confirm_den
+uint8 confirm_btp
+etsi_its_msgs/ActionID action_id
+
+uint8 CONFIRM_DEN_ACCEPTED = 0
+uint8 CONFIRM_DEN_INVALID_REQUEST = 1
+uint8 CONFIRM_DEN_INVALID_ACTION_ID = 2
+uint8 CONFIRM_DEN_ENCODING_FAILURE = 3
+uint8 CONFIRM_DEN_BTP_FAILURE = 4

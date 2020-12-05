@@ -1,0 +1,22 @@
+<launch>>
+    <arg name="fake_position_earth" default="true" />
+    <arg name="fake_localisation_vehicle" default="true" />
+    <arg name="fake_localisation_body" default="true" />
+    <arg name="fake_localisation_status" default="true" />
+    <arg name="fake_localisation_ellipsoid" default="true" />
+    <arg name="fake_position_vector" default="true" />
+    <arg name="latitude_to_use" default="48.784322" />
+    <arg name="longitude_to_use" default="11.473343" />
+    <arg name="heading_to_use" default="255.0" />
+
+    <node pkg="fake_data_rosvanetza" type="node" name="fake_data_rosvanetza" output="screen">
+        <param name="fake_position_earth" value="$(arg fake_position_earth)" />
+        <param name="fake_localisation_vehicle" value="$(arg fake_localisation_vehicle)" />
+        <param name="fake_localisation_body" value="$(arg fake_localisation_body)" />
+        <param name="fake_localisation_status" value="$(arg fake_localisation_status)" />
+        <param name="fake_position_vector" value="$(arg fake_position_vector)" />
+        <param name="latitude_to_use" value="$(arg latitude_to_use)" />
+        <param name="longitude_to_use" value="$(arg longitude_to_use)" />
+        <param name="heading_to_use" value="$(arg heading_to_use)" />
+    </node>
+</launch>

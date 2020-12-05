@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="vanetza_multicast_port" default="33211" />
+    <arg name="vanetza_multicast_ip" default="239.67.77.67" />
+    <arg name="vanetza_ccu_ip" default="10.10.4.165" />
+    <arg name="vanetza_ccu_port" default="33210" />
+    <arg name="localisation_earth_topic" default="/localisation/ellipsoid_ref" />
+    <arg name="localisation_vehicle_topic" default="/localisation/info" />
+    <arg name="localisation_body_topic" default="/localisation/body" />
+    <arg name="localisation_status_topic" default="/localisation/status" />
+
+    <node pkg="vanetza" type="node" name="vanetza">
+        <param name="multicast_port" value="$(arg vanetza_multicast_port)" />
+        <param name="multicast_ip" value="$(arg vanetza_multicast_ip)" />
+        <param name="ccu_ip" value="$(arg vanetza_ccu_ip)" />
+        <param name="ccu_port" value="$(arg vanetza_ccu_port)" />
+        <param name="station_type" value="motorcycle" />
+        <remap to="$(arg localisation_earth_topic)" from="localisation_ellipsoid" />
+        <remap to="$(arg localisation_vehicle_topic)" from="localisation_vehicle" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" args="load vanetza/ca_tx_nodelet vanetza" name="vanetza_ca_tx">
+        <param name="publish_cam" value="true" />
+        <remap from="btp_request" to="vanetza/btp_request" />
+        <remap from="id_change" to="vanetza/id_change" />
+        <remap to="$(arg localisation_body_topic)" from="localisation_body" />
+        <remap to="$(arg localisation_earth_topic)" from="localisation_earth" />
+        <remap to="$(arg localisation_vehicle_topic)" from="localisation_vehicle" />
+        <remap to="$(arg localisation_status_topic)" from="localisation_status" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" args="load vanetza/ca_rx_nodelet vanetza" name="vanetza_ca_rx">
+        <remap from="btp_indication" to="vanetza/btp_indication" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" args="load vanetza/den_tx_nodelet vanetza" name="vanetza_den_tx">
+        <remap from="btp_request" to="vanetza/btp_request" />
+        <remap from="id_change" to="vanetza/id_change" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" args="load vanetza/den_rx_nodelet vanetza" name="vanetza_den_rx">
+        <remap from="btp_indication" to="vanetza/btp_indication" />
+    </node>
+</launch>

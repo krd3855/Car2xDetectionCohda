@@ -1,0 +1,20 @@
+<library path="lib/libvanetza_nodelets">
+    <class name="vanetza/ca_tx_nodelet" type="vanetza::CaTxNodelet" base_class_type="nodelet::Nodelet">
+        <description>Cooperative Awareness transmitting nodelet</description>
+    </class>
+    <class name="vanetza/ca_rx_nodelet" type="vanetza::CaRxNodelet" base_class_type="nodelet::Nodelet">
+        <description>Cooperative Awareness receiving nodelet</description>
+    </class>
+    <class name="vanetza/den_tx_nodelet" type="vanetza::DenTxNodelet" base_class_type="nodelet::Nodelet">
+        <description>Decentralized Environmental Notification transmitting nodelet</description>
+    </class>
+    <class name="vanetza/den_rx_nodelet" type="vanetza::DenRxNodelet" base_class_type="nodelet::Nodelet">
+        <description>Decentralized Environmental Notification receiving nodelet</description>
+    </class>
+    <class name="vanetza/cp_tx_nodelet" type="vanetza::CpTxNodelet" base_class_type="nodelet::Nodelet">
+        <description>Collective Perception transmitting nodelet</description>
+    </class>
+    <class name="vanetza/cp_rx_nodelet" type="vanetza::CpRxNodelet" base_class_type="nodelet::Nodelet">
+        <description>Collective Perception receiving nodelet</description>
+    </class>
+</library>

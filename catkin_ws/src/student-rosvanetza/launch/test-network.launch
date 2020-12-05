@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="console_config" default="debug.conf" doc="rosconsole configuration" />
+    <env name="ROSCONSOLE_CONFIG_FILE" value="$(find vanetza)/config/console/$(arg console_config)" />
+    <env name="ROSCONSOLE_FORMAT" value="${node} [${severity} @ ${time}]: ${message}" />
+
+    <arg name="pcap_output" default="" doc="log network traffic in PCAP file" />
+    <node pkg="vanetza" type="virtual_ccu" name="ccu">
+        <param name="nodes" value="3" />
+        <param name="pcap_output" value="$(arg pcap_file)" />
+    </node>
+
+    <node pkg="vanetza" type="gbc_trigger.py" name="gbc_trigger">
+        <param name="delay" value="3" />
+        <param name="latitude" value="48.78435" />
+        <param name="longitude" value="11.47286" />
+        <remap from="btp_request" to="/node1/vanetza/btp_request" />
+    </node>
+
+    <include file="$(find vanetza)/launch/test-node.launch" ns="node1">
+        <arg name="id" value="1" />
+        <arg name="latitude" value="48.78435" />
+        <arg name="longitude" value="11.47286" />
+    </include>
+
+    <include file="$(find vanetza)/launch/test-node.launch" ns="node2">
+        <arg name="id" value="2" />
+        <arg name="latitude" value="48.78408" />
+        <arg name="longitude" value="11.47372" />
+    </include>
+
+    <include file="$(find vanetza)/launch/test-node.launch" ns="node3">
+        <arg name="id" value="3" />
+        <arg name="latitude" value="48.78463" />
+        <arg name="longitude" value="11.47349" />
+    </include>
+</launch>

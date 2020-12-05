@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="id" doc="unique ID of this node in the range between 1 and 254"/>
+    <arg name="latitude" />
+    <arg name="longitude" />
+
+    <node pkg="vanetza" type="gps_mock.py" name="gps_mock">
+        <param name="latitude" value="$(arg latitude)" />
+        <param name="longitude" value="$(arg longitude)" />
+    </node>
+
+    <node pkg="vanetza" type="node" name="vanetza" output="screen">
+        <param name="multicast_port" value="$(eval arg('id') + 33600)" />
+        <param name="multicast_ip" value="239.67.77.67" />
+        <param name="ccu_ip" value="127.0.2.$(arg id)" />
+        <param name="ccu_port" value="$(eval arg('id') + 33000)" />
+        <param name="fading_cbf_counters" value="true" />
+        <param name="soft_state_neighbours" value="true" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" args="load vanetza/ca_tx_nodelet vanetza" name="vanetza_ca_tx">
+        <remap from="btp_request" to="vanetza/btp_request" />
+        <remap from="id_change" to="vanetza/id_change" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" args="load vanetza/ca_rx_nodelet vanetza" name="vanetza_ca_rx">
+        <remap from="btp_indication" to="vanetza/btp_indication" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" args="load vanetza/den_tx_nodelet vanetza" name="vanetza_den_tx">
+        <remap from="btp_request" to="vanetza/btp_request" />
+        <remap from="id_change" to="vanetza/id_change" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" args="load vanetza/den_rx_nodelet vanetza" name="vanetza_den_rx">
+        <remap from="btp_indication" to="vanetza/btp_indication" />
+    </node>
+</launch>

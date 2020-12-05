@@ -1,0 +1,10 @@
+<launch>>
+    <arg name="id_maker1" default="0" />
+    <arg name="id_maker2" default="1" />
+
+
+    <node pkg="denm_client" type="node" name="denm_client">
+        <param name="id_maker1" value="$(arg id_maker1)" />
+        <param name="id_maker2" value="$(arg id_maker2)" />
+    </node>
+</launch>

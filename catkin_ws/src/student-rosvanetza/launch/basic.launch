@@ -1,0 +1,53 @@
+<launch>>
+    <arg name="vanetza_multicast_port" default="33211" />
+    <arg name="vanetza_multicast_ip" default="239.67.77.67" />
+    <arg name="vanetza_ccu_ip" default="192.168.52.79" />
+    <arg name="vanetza_ccu_port" default="33210" />
+
+    
+<include file="$(find fake_data_rosvanetza)/launch/fake_gps.launch"></include>
+    <node pkg="vanetza" type="node" name="vanetza" output="screen">
+        <param name="multicast_port" value="$(arg vanetza_multicast_port)" />
+        <param name="multicast_ip" value="$(arg vanetza_multicast_ip)" />
+        <param name="ccu_ip" value="$(arg vanetza_ccu_ip)" />
+        <param name="ccu_port" value="$(arg vanetza_ccu_port)" />
+        <param name="publish_link_layer" value="true" />
+    </node>
+
+<!--
+
+
+    <node pkg="nodelet" type="nodelet" args="load vanetza/cp_tx_nodelet vanetza" name="vanetza_cp_tx">
+        <remap from="btp_request" to="vanetza/btp_request" />
+        <remap from="id_change" to="vanetza/id_change" />
+    </node>
+-->
+<!--
+    <node pkg="nodelet" type="nodelet" args="load vanetza/cp_rx_nodelet vanetza" name="vanetza_cp_rx">
+        <remap from="btp_indication" to="vanetza/btp_indication" />
+    </node>
+-->
+
+
+    <node pkg="nodelet" type="nodelet" args="load vanetza/ca_tx_nodelet vanetza" name="vanetza_ca_tx">
+        <remap from="btp_request" to="vanetza/btp_request" />
+        <remap from="id_change" to="vanetza/id_change" />
+    </node>
+
+<!--
+    <node pkg="nodelet" type="nodelet" args="load vanetza/ca_rx_nodelet vanetza" name="vanetza_ca_rx">
+        <remap from="btp_indication" to="vanetza/btp_indication" />
+    </node>
+-->
+
+    <node pkg="nodelet" type="nodelet" args="load vanetza/den_tx_nodelet vanetza" name="vanetza_den_tx" output="screen">
+        <remap from="btp_request" to="vanetza/btp_request" />
+        <remap from="id_change" to="vanetza/id_change" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" args="load vanetza/den_rx_nodelet vanetza" name="vanetza_den_rx" output="screen">
+        <remap from="btp_indication" to="vanetza/btp_indication" />
+    </node>
+
+
+</launch>

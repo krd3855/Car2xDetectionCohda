@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="nodelet" type="nodelet" args="manager" name="ca_nodelet_manager" output="screen" />
+    <node pkg="nodelet" type="nodelet" args="load vanetza/ca_rx_nodelet ca_nodelet_manager" name="ca_rx_nodelet" output="screen" />
+    <node pkg="nodelet" type="nodelet" args="load vanetza/ca_tx_nodelet ca_nodelet_manager" name="ca_tx_nodelet" output="screen" />
+</launch>
