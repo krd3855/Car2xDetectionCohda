@@ -1,0 +1,4 @@
+std_msgs/Header header
+int8 parkingSlot1Status_
+int8 parkingSlot2Status_
+int8 parkingSlot3Status_
